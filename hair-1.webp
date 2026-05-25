@@ -1,0 +1,661 @@
+// Removed createFileRoute import
+
+import { motion } from "motion/react";
+import {
+  Scissors,
+  Sparkles,
+  Palette,
+  Waves,
+  Leaf,
+  Star,
+  MapPin,
+  Clock,
+  Phone,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import { useEffect, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+
+import { Navbar } from "@/components/site/Navbar";
+import { WhatsAppFab, WHATSAPP_URL } from "@/components/site/WhatsAppFab";
+import { Reveal } from "@/components/site/Reveal";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
+import heroImg from "@/assets/interior-1.webp";
+import int2 from "@/assets/interior-2.webp";
+import int3 from "@/assets/interior-3.webp";
+import hair1 from "@/assets/hair-1.webp";
+import hair2 from "@/assets/hair-2.jpg";
+import stylist from "@/assets/stylist.jpg";
+import logo from "@/assets/logo.jpg";
+
+export default HomePage;
+
+const services = [
+  {
+    icon: Scissors,
+    name: "Signature Cut",
+    desc: "Tailored cut & shape, shampoo, blow-dry.",
+    price: "from $75",
+  },
+  {
+    icon: Palette,
+    name: "Colour & Highlights",
+    desc: "Single tone, balayage, foils, toning.",
+    price: "from $180",
+  },
+  {
+    icon: Waves,
+    name: "Perm & Digital Perm",
+    desc: "Soft waves, body wave, Korean perm.",
+    price: "from $190",
+  },
+  {
+    icon: Sparkles,
+    name: "Styling & Blow-Dry",
+    desc: "Event-ready styling, blow waves, updo.",
+    price: "from $65",
+  },
+  {
+    icon: Leaf,
+    name: "Treatment & Repair",
+    desc: "Olaplex, keratin, deep moisture.",
+    price: "from $55",
+  },
+  {
+    icon: Star,
+    name: "Bridal & Special",
+    desc: "Trial + day-of styling, on-location options.",
+    price: "POA",
+  },
+];
+
+const reviews = [
+  {
+    name: "Marisa Reyne",
+    text: "I've been going to Show Salon regularly since their Eastwood days. Martin really listens and keeps adjusting the cut little by little until I'm completely happy. Super patient, detail-oriented, and genuinely cares about the result. I always leave feeling confident.",
+    rating: 5,
+  },
+  {
+    name: "YiRo J",
+    text: "I've been with the same hairdresser for over 10 years. The consistency, skill, and attention to detail are truly outstanding. May always understands exactly what I want and what suits me best, and the results never disappoint. Professional, trustworthy and genuinely passionate.",
+    rating: 5,
+  },
+  {
+    name: "Joice Lee",
+    text: "I had a great haircut experience at SHOW SALON. My stylist, May, was very attentive and has a great sense of what suits women. I naturally have curly hair, and after the cut and styling she turned the natural shape of my hair into an advantage. Highly recommend.",
+    rating: 5,
+  },
+];
+
+const galleryItems = [
+  { src: hair1, alt: "Long layered cut with natural movement", tall: true },
+  { src: int2, alt: "Private styling room interior" },
+  { src: hair2, alt: "Sleek straight cut and tone" },
+  { src: int3, alt: "Wash bar and product display" },
+  { src: stylist, alt: "Stylist at work in the salon" },
+  { src: heroImg, alt: "Salon floor with leather chairs", tall: true },
+];
+
+function HomePage() {
+  return (
+    <div id="top" className="relative min-h-screen overflow-x-hidden bg-background text-foreground">
+      <Navbar />
+      <WhatsAppFab />
+      <Hero />
+      <Marquee />
+      <About />
+      <Services />
+      <Gallery />
+      <BeforeAfter />
+      <Reviews />
+      <Visit />
+      <FAQ />
+      <CTA />
+      <Footer />
+    </div>
+  );
+}
+
+function Hero() {
+  return (
+    <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
+      <div className="absolute inset-0">
+        <img src={heroImg} alt="Show Hair Salon interior" className="h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-5xl px-6 py-32 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="mb-6 inline-flex items-center gap-3 rounded-full border border-border/60 bg-background/60 px-4 py-1.5 backdrop-blur-md"
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+          <span className="text-[11px] tracking-luxe uppercase text-foreground/80">
+            Epping · Est 2016 · 4.8 ★ 305 reviews
+          </span>
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.1 }}
+          className="text-balance font-display text-5xl leading-[1.02] sm:text-7xl md:text-8xl"
+        >
+          Luxury Hair Styling
+          <br />
+          <span className="italic text-primary">in the heart of Epping</span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.25 }}
+          className="mx-auto mt-7 max-w-xl text-balance text-base text-muted-foreground sm:text-lg"
+        >
+          Personalised cuts, colouring, perms and restorative treatments — crafted by a master team
+          inspired by modern Korean and Japanese styling.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.4 }}
+          className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
+        >
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-medium text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:shadow-xl hover:shadow-primary/30 sm:w-auto"
+          >
+            Book on WhatsApp
+            <span className="transition-transform group-hover:translate-x-0.5">→</span>
+          </a>
+          <a
+            href="#services"
+            className="inline-flex w-full items-center justify-center rounded-full border border-border bg-background/60 px-8 py-4 text-sm font-medium text-foreground backdrop-blur-md transition-all hover:bg-background sm:w-auto"
+          >
+            Explore Services
+          </a>
+        </motion.div>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+        className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2"
+      >
+        <div className="flex flex-col items-center gap-2 text-[10px] tracking-luxe uppercase text-muted-foreground">
+          <span>Scroll</span>
+          <span className="h-10 w-px animate-pulse bg-foreground/30" />
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
+function Marquee() {
+  const words = [
+    "Cut",
+    "Colour",
+    "Perm",
+    "Treatment",
+    "Styling",
+    "Bridal",
+    "Korean Perm",
+    "Balayage",
+  ];
+  return (
+    <div className="border-y border-border/60 bg-secondary/40 py-5 overflow-hidden">
+      <div className="flex animate-[marquee_40s_linear_infinite] gap-12 whitespace-nowrap font-display text-2xl text-foreground/70 sm:text-3xl">
+        {[...words, ...words, ...words].map((w, i) => (
+          <span key={i} className="flex items-center gap-12">
+            <span className="italic">{w}</span>
+            <span className="text-primary">✦</span>
+          </span>
+        ))}
+      </div>
+      <style>{`@keyframes marquee { to { transform: translateX(-50%); } }`}</style>
+    </div>
+  );
+}
+
+function About() {
+  return (
+    <section id="about" className="relative py-24 sm:py-32">
+      <div className="mx-auto grid max-w-7xl gap-12 px-6 md:grid-cols-2 md:gap-16 md:px-10">
+        <Reveal className="relative">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
+            <img
+              src={int2}
+              alt="Show Salon styling station"
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <div className="absolute -bottom-6 -right-2 hidden h-40 w-32 overflow-hidden rounded-lg border-4 border-background sm:block md:-right-8 md:h-52 md:w-40">
+            <img src={hair1} alt="Hair styling result" className="h-full w-full object-cover" />
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.15} className="flex flex-col justify-center">
+          <span className="text-[11px] tracking-luxe uppercase text-primary">About Show Salon</span>
+          <h2 className="mt-4 font-display text-4xl leading-tight sm:text-5xl">
+            A quiet, modern atelier for hair you actually love.
+          </h2>
+          <p className="mt-6 text-base text-muted-foreground sm:text-lg">
+            Since 2016, Show Salon has been Epping's go-to for considered, contemporary hair. Our
+            philosophy is simple — listen carefully, work patiently, and finish with detail. Every
+            cut and colour is tailored to your face, lifestyle and the way your hair really moves.
+          </p>
+          <div className="mt-8 grid grid-cols-3 gap-6">
+            {[
+              { k: "10+", v: "Years crafting" },
+              { k: "4.8★", v: "Google rating" },
+              { k: "305+", v: "Happy reviews" },
+            ].map((s) => (
+              <div key={s.v}>
+                <div className="font-display text-3xl text-primary sm:text-4xl">{s.k}</div>
+                <div className="mt-1 text-xs tracking-wide uppercase text-muted-foreground">
+                  {s.v}
+                </div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function Services() {
+  return (
+    <section id="services" className="bg-secondary/30 py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-6 md:px-10">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <span className="text-[11px] tracking-luxe uppercase text-primary">Services</span>
+          <h2 className="mt-4 font-display text-4xl sm:text-5xl">Crafted, not rushed.</h2>
+          <p className="mt-5 text-muted-foreground">
+            Pricing starts from — final quote given in consultation based on length, density and
+            complexity.
+          </p>
+        </Reveal>
+
+        <div className="mt-14 grid gap-px overflow-hidden rounded-xl bg-border sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((s, i) => (
+            <Reveal key={s.name} delay={i * 0.05}>
+              <div className="group relative h-full bg-card p-8 transition-all hover:bg-accent/40">
+                <s.icon className="h-7 w-7 text-primary transition-transform group-hover:-translate-y-0.5" />
+                <h3 className="mt-5 font-display text-2xl">{s.name}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
+                <div className="mt-6 flex items-center justify-between border-t border-border/60 pt-4">
+                  <span className="text-xs tracking-luxe uppercase text-muted-foreground">
+                    {s.price}
+                  </span>
+                  <a
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium text-primary transition-all group-hover:translate-x-0.5"
+                  >
+                    Enquire →
+                  </a>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Gallery() {
+  return (
+    <section id="gallery" className="py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-6 md:px-10">
+        <Reveal className="flex flex-col items-end justify-between gap-4 sm:flex-row">
+          <div>
+            <span className="text-[11px] tracking-luxe uppercase text-primary">Gallery</span>
+            <h2 className="mt-3 font-display text-4xl sm:text-5xl">Inside the salon.</h2>
+          </div>
+          <p className="max-w-sm text-sm text-muted-foreground">
+            A warm, calm space and finished looks crafted by our team.
+          </p>
+        </Reveal>
+
+        <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
+          {galleryItems.map((g, i) => (
+            <Reveal key={i} delay={i * 0.04} className={g.tall ? "row-span-2" : ""}>
+              <div
+                className={`group relative overflow-hidden rounded-lg ${
+                  g.tall ? "aspect-[3/5]" : "aspect-square"
+                } h-full`}
+              >
+                <img
+                  src={g.src}
+                  alt={g.alt}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BeforeAfter() {
+  const [pos, setPos] = useState(50);
+  return (
+    <section className="bg-secondary/30 py-24 sm:py-32">
+      <div className="mx-auto max-w-6xl px-6 md:px-10">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <span className="text-[11px] tracking-luxe uppercase text-primary">Transformations</span>
+          <h2 className="mt-4 font-display text-4xl sm:text-5xl">Before & after.</h2>
+          <p className="mt-5 text-muted-foreground">Drag the slider to see the change.</p>
+        </Reveal>
+
+        <Reveal delay={0.1} className="mt-12">
+          <div
+            className="relative mx-auto aspect-[4/5] max-w-2xl select-none overflow-hidden rounded-lg sm:aspect-[16/10]"
+            onMouseMove={(e) => {
+              const r = e.currentTarget.getBoundingClientRect();
+              setPos(((e.clientX - r.left) / r.width) * 100);
+            }}
+            onTouchMove={(e) => {
+              const r = e.currentTarget.getBoundingClientRect();
+              const t = e.touches[0];
+              setPos(((t.clientX - r.left) / r.width) * 100);
+            }}
+          >
+            <img src={hair1} alt="Before" className="absolute inset-0 h-full w-full object-cover" />
+            <div
+              className="absolute inset-0 overflow-hidden"
+              style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
+            >
+              <img
+                src={hair2}
+                alt="After"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
+            <div className="absolute inset-y-0 w-0.5 bg-background" style={{ left: `${pos}%` }}>
+              <div className="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-background shadow-lg">
+                <ChevronLeft className="h-4 w-4" />
+                <ChevronRight className="h-4 w-4" />
+              </div>
+            </div>
+            <span className="absolute left-4 top-4 rounded-full bg-background/80 px-3 py-1 text-[10px] tracking-luxe uppercase backdrop-blur">
+              Before
+            </span>
+            <span className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1 text-[10px] tracking-luxe uppercase text-primary-foreground">
+              After
+            </span>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function Reviews() {
+  const [emblaRef, embla] = useEmblaCarousel({ loop: true, align: "start" });
+  const [selected, setSelected] = useState(0);
+
+  useEffect(() => {
+    if (!embla) return;
+    const onSel = () => setSelected(embla.selectedScrollSnap());
+    embla.on("select", onSel);
+    onSel();
+    const id = setInterval(() => embla.scrollNext(), 6000);
+    return () => clearInterval(id);
+  }, [embla]);
+
+  return (
+    <section id="reviews" className="py-24 sm:py-32">
+      <div className="mx-auto max-w-6xl px-6 md:px-10">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <span className="text-[11px] tracking-luxe uppercase text-primary">Reviews</span>
+          <h2 className="mt-4 font-display text-4xl sm:text-5xl">Loved by Epping locals.</h2>
+          <div className="mt-5 flex items-center justify-center gap-1.5 text-gold">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="h-4 w-4 fill-current" />
+            ))}
+            <span className="ml-2 text-sm text-muted-foreground">4.8 · 305 Google reviews</span>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.1} className="mt-12">
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex">
+              {reviews.map((r) => (
+                <div
+                  key={r.name}
+                  className="min-w-0 flex-[0_0_100%] px-2 md:flex-[0_0_50%] lg:flex-[0_0_33.333%]"
+                >
+                  <div className="flex h-full flex-col rounded-lg border border-border/60 bg-card p-7">
+                    <div className="flex items-center gap-1 text-gold">
+                      {[...Array(r.rating)].map((_, i) => (
+                        <Star key={i} className="h-3.5 w-3.5 fill-current" />
+                      ))}
+                    </div>
+                    <p className="mt-5 font-display text-lg italic leading-relaxed text-foreground/85">
+                      "{r.text}"
+                    </p>
+                    <div className="mt-6 border-t border-border/60 pt-4 text-sm font-medium">
+                      {r.name}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="mt-6 flex items-center justify-center gap-2">
+            {reviews.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => embla?.scrollTo(i)}
+                className={`h-1.5 rounded-full transition-all ${
+                  selected === i ? "w-8 bg-primary" : "w-1.5 bg-border"
+                }`}
+                aria-label={`Go to review ${i + 1}`}
+              />
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function Visit() {
+  return (
+    <section id="visit" className="bg-secondary/30 py-24 sm:py-32">
+      <div className="mx-auto grid max-w-7xl gap-12 px-6 md:grid-cols-2 md:gap-16 md:px-10">
+        <Reveal>
+          <span className="text-[11px] tracking-luxe uppercase text-primary">Visit</span>
+          <h2 className="mt-4 font-display text-4xl sm:text-5xl">Come say hello.</h2>
+          <p className="mt-5 text-muted-foreground">
+            Easy to find in the heart of Epping. Walk-ins welcome when chairs are available —
+            bookings recommended on busy days.
+          </p>
+
+          <div className="mt-8 space-y-5">
+            <div className="flex gap-4">
+              <MapPin className="mt-1 h-5 w-5 flex-none text-primary" />
+              <div>
+                <div className="text-sm font-medium">Address</div>
+                <div className="text-sm text-muted-foreground">
+                  1 Oxford St, Epping NSW 2121, Australia
+                </div>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <Clock className="mt-1 h-5 w-5 flex-none text-primary" />
+              <div>
+                <div className="text-sm font-medium">Opening Hours</div>
+                <ul className="mt-1 space-y-1 text-sm text-muted-foreground">
+                  <li className="flex justify-between gap-8">
+                    <span>Mon – Fri</span>
+                    <span>9:30 – 19:00</span>
+                  </li>
+                  <li className="flex justify-between gap-8">
+                    <span>Saturday</span>
+                    <span>9:00 – 18:00</span>
+                  </li>
+                  <li className="flex justify-between gap-8">
+                    <span>Sunday</span>
+                    <span>10:00 – 17:00</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <Phone className="mt-1 h-5 w-5 flex-none text-primary" />
+              <div>
+                <div className="text-sm font-medium">Contact</div>
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-primary hover:underline"
+                >
+                  WhatsApp +61 433 063 494
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-9 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-medium text-primary-foreground transition-all hover:shadow-lg"
+          >
+            Book on WhatsApp →
+          </a>
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <div className="aspect-[4/5] overflow-hidden rounded-lg border border-border md:aspect-auto md:h-full">
+            <iframe
+              title="Show Salon location"
+              src="https://www.google.com/maps?q=1+Oxford+St,+Epping+NSW+2121,+Australia&output=embed"
+              className="h-full w-full"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+const faqs = [
+  {
+    q: "Do I need to book in advance?",
+    a: "We recommend booking via WhatsApp to secure your preferred time, especially on Saturdays. Walk-ins are welcome whenever a chair is free.",
+  },
+  {
+    q: "How do I book?",
+    a: "Easiest way is WhatsApp — tap any 'Book on WhatsApp' button and you'll be taken straight to our chat with a pre-filled message.",
+  },
+  {
+    q: "How much do services cost?",
+    a: "Prices start from the figures listed under Services. Final pricing depends on hair length, density and the time required — we'll confirm before we begin.",
+  },
+  {
+    q: "Is there parking nearby?",
+    a: "Yes — paid council parking is available on Oxford St and surrounding side streets, plus several public car parks within a 2-minute walk.",
+  },
+  {
+    q: "Do you speak Korean / Chinese / English?",
+    a: "Yes. Our stylists speak English, Korean and Mandarin — feel free to message us in whichever you're most comfortable with.",
+  },
+];
+
+function FAQ() {
+  return (
+    <section className="py-24 sm:py-32">
+      <div className="mx-auto max-w-3xl px-6 md:px-10">
+        <Reveal className="text-center">
+          <span className="text-[11px] tracking-luxe uppercase text-primary">FAQ</span>
+          <h2 className="mt-4 font-display text-4xl sm:text-5xl">Good to know.</h2>
+        </Reveal>
+        <Reveal delay={0.1} className="mt-12">
+          <Accordion type="single" collapsible className="w-full">
+            {faqs.map((f, i) => (
+              <AccordionItem key={i} value={`item-${i}`} className="border-border/70">
+                <AccordionTrigger className="text-left font-display text-xl hover:no-underline">
+                  {f.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function CTA() {
+  return (
+    <section className="relative overflow-hidden bg-primary text-primary-foreground">
+      <div className="absolute inset-0 opacity-20">
+        <img src={int3} alt="" className="h-full w-full object-cover" />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/95 via-primary/85 to-primary" />
+      <div className="relative mx-auto max-w-4xl px-6 py-24 text-center sm:py-32 md:px-10">
+        <Reveal>
+          <span className="text-[11px] tracking-luxe uppercase opacity-80">Ready when you are</span>
+          <h2 className="mt-5 font-display text-5xl leading-tight sm:text-6xl md:text-7xl">
+            Your next favourite haircut
+            <br />
+            <span className="italic">starts with a message.</span>
+          </h2>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-10 inline-flex items-center gap-2 rounded-full bg-background px-9 py-4 text-sm font-medium text-foreground transition-all hover:scale-[1.02] hover:shadow-2xl"
+          >
+            Book on WhatsApp →
+          </a>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="border-t border-border bg-background py-12">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 text-center md:flex-row md:text-left md:px-10">
+        <div className="flex items-center gap-3">
+          <img src={logo} alt="Show Hair Salon" className="h-9 w-9 rounded-md object-cover" />
+          <div>
+            <div className="font-display text-lg">Show Hair Salon</div>
+            <div className="text-xs text-muted-foreground">1 Oxford St, Epping NSW 2121</div>
+          </div>
+        </div>
+        <p className="text-xs text-muted-foreground">
+          © {new Date().getFullYear()} Show Hair Salon. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  );
+}
